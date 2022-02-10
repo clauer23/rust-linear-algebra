@@ -1,3 +1,8 @@
+mod complex;
+
+use complex::Complex;
+
 fn main() {
-    println!("Hello, world!");
+    let x = Complex::new(5.0,5.0);
+    println!("{}", x.conj());
 }
