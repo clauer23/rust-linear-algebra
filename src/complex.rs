@@ -1,6 +1,6 @@
 extern crate num_traits as traits;
 
-use traits::{Zero, One, Num, Float};
+use traits::Num;
 
 use core::ops::{Add, Mul, Neg, Sub};
 
