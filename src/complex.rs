@@ -57,8 +57,8 @@ impl<T: Clone + Num> Add<Complex<T>> for Complex<T> {
     fn add(self, other: Self) -> Self::Output{
         Self::Output::new(self.re + other.re, self.im + other.im)
     }
-
 }
+
 
 impl<T: Clone + Num> Sub<Complex<T>> for Complex<T> {
     type Output = Self;
