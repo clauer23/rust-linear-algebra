@@ -1,13 +1,16 @@
 mod complex;
-mod column_vector;
+mod vector_ops;
 
-use column_vector::ColumnV;
-use complex::Complex;
+use complex::cmp;
 
 fn main() {
-    let x = Complex::new(5.0, 5.0);
-    let y = Complex::new(-5.0, 5.0);
-    let z = x + y;
+
+    let x = cmp(1, 2);
+
+    let u1 = vec![cmp(1,0), cmp(1,1), cmp(1,0)];
+    let u2 = vec![cmp(0, -1), cmp(1, 0), cmp(1, 1)];
+
+    let v = vector_ops::inner_product(u1, u2);
     
-    println!("{}", z);
+    println!("{}", v);
 }

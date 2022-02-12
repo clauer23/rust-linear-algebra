@@ -1,8 +1,9 @@
 extern crate num_traits as traits;
 
-use traits::Num;
+use traits::{Num, Zero};
 
 use core::ops::{Add, Mul, Neg, Sub};
+use core::iter::Sum;
 
 use std::fmt;
 
@@ -13,6 +14,10 @@ pub struct Complex<T>{
     pub re: T,
     // Imaginary Component
     pub im: T,
+}
+
+pub fn cmp<T>(a: T, b: T) -> Complex<T> {
+    Complex{re:a, im:b}
 }
 
 pub type Complex32 = Complex<f32>;
@@ -31,6 +36,15 @@ impl<T: Clone + Num> Complex<T>{
     // Returns i
     pub fn i() -> Self {
         Self::new(T::zero(), T::one())
+    }
+}
+
+impl<T: Num + Clone> Sum for Complex<T> {
+    fn sum<I>(iter: I) -> Self
+    where
+        I: Iterator<Item = Self>,
+    {
+        iter.fold(Self::zero(), |acc, c| acc + c)
     }
 }
 
@@ -83,5 +97,23 @@ impl<T: Clone + Num + Neg<Output = T>> Neg for Complex<T> {
 
     fn neg(self) -> Self::Output{
         Self::Output::new(-self.re.clone(), -self.im.clone())
+    }
+}
+
+impl<T: Clone + Num> Zero for Complex<T> {
+    #[inline]
+    fn zero() -> Self {
+        Self::new(Zero::zero(), Zero::zero())
+    }
+
+    #[inline]
+    fn is_zero(&self) -> bool {
+        self.re.is_zero() && self.im.is_zero()
+    }
+
+    #[inline]
+    fn set_zero(&mut self) {
+        self.re.set_zero();
+        self.im.set_zero();
     }
 }
